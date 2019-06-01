@@ -1,0 +1,6 @@
+.idea/
+recipesapp.iml
+/target
+*.exe
+*.pdf
+MANIFEST.MF
