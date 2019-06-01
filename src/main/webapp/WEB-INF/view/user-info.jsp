@@ -19,7 +19,12 @@
         <br><br>
         Email: ${user.email}
         <br><br>
-        Recipes: <c:forEach items="${}"
+        Recipes:
+        <br/>
+        <c:forEach items="${recipes}" var="recipe">
+        ${recipe.text}
+        <br/>
+        </c:forEach>
 
     </p>
 

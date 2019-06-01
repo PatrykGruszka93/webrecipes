@@ -3,18 +3,24 @@ package com.pgruszka93.service;
 
 import com.pgruszka93.dao.RoleDao;
 import com.pgruszka93.dao.UserDao;
+import com.pgruszka93.entity.Recipe;
 import com.pgruszka93.entity.Role;
 import com.pgruszka93.entity.User;
 import com.pgruszka93.user.CrmUser;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.stereotype.Controller;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.ui.Model;
 
+import java.security.Principal;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.stream.Collectors;
@@ -31,6 +37,9 @@ public class UserServiceImpl implements UserService {
 	
 	@Autowired
 	private BCryptPasswordEncoder passwordEncoder;
+
+
+
 
 	@Override
 	@Transactional
@@ -50,7 +59,7 @@ public class UserServiceImpl implements UserService {
 		user.setActive(true);
 
 		// give user default role of "employee"
-		user.setRoles(Arrays.asList(roleDao.findRoleByName("ROLE_EMPLOYEE")));
+		user.setRoles(Arrays.asList(roleDao.findRoleByName("ROLE_USER")));
 
 		 // save user in the database
 		userDao.save(user);
@@ -70,4 +79,13 @@ public class UserServiceImpl implements UserService {
 	private Collection<? extends GrantedAuthority> mapRolesToAuthorities(Collection<Role> roles) {
 		return roles.stream().map(role -> new SimpleGrantedAuthority(role.getName())).collect(Collectors.toList());
 	}
+
+	@Override
+	@Transactional
+	public Collection<Recipe> loadRecipesByUsername(String userName){
+		User user = userDao.findByUserName(userName);
+		Collection<Recipe> recipes= user.getRecipes();
+		return recipes;
+	}
+
 }

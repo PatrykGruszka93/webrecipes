@@ -1,12 +1,15 @@
 package com.pgruszka93.dao;
 
 
+import com.pgruszka93.entity.Recipe;
 import com.pgruszka93.entity.User;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+
+import java.util.Collection;
 
 @Repository
 public class UserDaoImpl implements UserDao {
@@ -29,7 +32,7 @@ public class UserDaoImpl implements UserDao {
 		} catch (Exception e) {
 			theUser = null;
 		}
-
+		System.out.println("Recipes:" + theUser.getRecipes());
 		return theUser;
 	}
 
@@ -41,5 +44,8 @@ public class UserDaoImpl implements UserDao {
 		// create the user ... finally LOL
 		currentSession.saveOrUpdate(theUser);
 	}
+
+
+
 
 }
