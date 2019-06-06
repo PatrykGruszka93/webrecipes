@@ -6,7 +6,7 @@ import java.util.Collection;
 
 public interface RecipeDao {
 
-    Collection<Recipe> findNewestRecipes(int quantity);
+    Collection<Recipe> findNewestRecipes(int pageSize, int pageNumber);
 
-    Collection<Recipe> loadNextRecipes(int quantity);
+    Collection<Recipe> loadNextRecipes(int pageSize);
 }

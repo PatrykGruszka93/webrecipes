@@ -16,5 +16,7 @@ public interface UserService extends UserDetailsService {
 
     Collection<Recipe> loadRecipesByUsername(String userName);
 
-    Collection<Recipe> loadNewestRecipes();
+    Collection<Recipe> loadNewestRecipes(int pageNumber);
+
+
 }
