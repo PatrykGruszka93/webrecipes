@@ -32,7 +32,8 @@ public class User {
 			inverseJoinColumns = {@JoinColumn(name="authorities_id", referencedColumnName="id")})
 	private Collection<Role> roles;
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "users")
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
 	private Collection<Recipe> recipes;
 
 

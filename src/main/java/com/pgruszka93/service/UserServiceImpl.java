@@ -1,6 +1,7 @@
 package com.pgruszka93.service;
 
 
+import com.pgruszka93.dao.RecipeDao;
 import com.pgruszka93.dao.RoleDao;
 import com.pgruszka93.dao.UserDao;
 import com.pgruszka93.entity.Recipe;
@@ -34,12 +35,12 @@ public class UserServiceImpl implements UserService {
 
 	@Autowired
 	private RoleDao roleDao;
+
+	@Autowired
+    private RecipeDao recipeDao;
 	
 	@Autowired
 	private BCryptPasswordEncoder passwordEncoder;
-
-
-
 
 	@Override
 	@Transactional
@@ -84,8 +85,16 @@ public class UserServiceImpl implements UserService {
 	@Transactional
 	public Collection<Recipe> loadRecipesByUsername(String userName){
 		User user = userDao.findByUserName(userName);
-		Collection<Recipe> recipes= user.getRecipes();
+		Collection<Recipe> recipes = user.getRecipes();
 		return recipes;
 	}
 
+    @Override
+	@Transactional
+    public Collection<Recipe> loadNewestRecipes() {
+	    final int QUANTITY = 5;
+        Collection<Recipe> recipes = recipeDao.findNewestRecipes(QUANTITY);
+
+	    return recipes;
+    }
 }

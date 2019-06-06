@@ -11,32 +11,38 @@
                 <li class="nav-item active">
                     <a class="nav-link" href="${pageContext.request.contextPath}/">Start <span class="sr-only">(jesteś tutaj)</span></a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="${pageContext.request.contextPath}/userInfo">Profil</a>
-                </li>
-                <c:if test="${pageContext.request.isUserInRole('ADMIN')}">
-                    <li class="nav-item">
-                        <a class="nav-link" href="${pageContext.request.contextPath}/adminPanel">Panel admina</a>
-                    </li>
-                </c:if>
 
                 <c:if test="${pageContext.request.userPrincipal.name != null}">
-                    <li>
-                        <a class="nav-link" href="${pageContext.request.contextPath}/recipes/recipeForm">Dodaj przepis</a>
-                    </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Profil
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                        <a class="dropdown-item" href="${pageContext.request.contextPath}/userInfo">Wyświetl profil</a>
+                        <a class="dropdown-item" href="${pageContext.request.contextPath}/recipes/recipeForm">Dodaj przepis</a>
+                        <c:if test="${pageContext.request.isUserInRole('ADMIN')}">
+                            <a class="dropdown-item" href="${pageContext.request.contextPath}/adminPanel">Panel admina</a>
+                        </c:if>
+                    </div>
+                </li>
                 </c:if>
+
 
 
             </ul>
             <ul class="nav navbar-nav navbar-right">
+                <form class="form-inline">
+                    <input class="form-control mr-sm-2" type="search" placeholder="Szukaj" aria-label="Szukaj">
+                    <button class="btn btn-light mr-2 mr-sm-2" type="submit">Szukaj</button>
+                </form>
                 <c:if test="${pageContext.request.userPrincipal.name == null}">
                     <li>
-                            <a class="btn btn-light" href="${pageContext.request.contextPath}/showMyLoginPage">Zaloguj</a>
+                            <a class="btn btn-light mr-sm-2" href="${pageContext.request.contextPath}/showMyLoginPage">Zaloguj</a>
                     </li>
                 </c:if>
                 <c:if test="${pageContext.request.userPrincipal.name == null}">
                     <li>
-                        <a class="btn btn-light" href="${pageContext.request.contextPath}/register/showRegistrationForm">Zarejestruj</a>
+                        <a class="btn btn-light mr-sm-2" href="${pageContext.request.contextPath}/register/showRegistrationForm">Zarejestruj</a>
                     </li>
                 </c:if>
 
@@ -44,7 +50,7 @@
                 <c:if test="${pageContext.request.userPrincipal.name != null}">
                     <li>
                         <form:form action="${pageContext.request.contextPath}/logout" method="POST">
-                            <button class="btn btn-light navbar-btn" type="submit">Wyloguj</button>
+                            <button class="btn btn-light navbar-btn mr-sm-2" type="submit">Wyloguj</button>
                         </form:form>
                     </li>
                 </c:if>
