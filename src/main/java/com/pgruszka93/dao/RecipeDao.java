@@ -8,5 +8,7 @@ public interface RecipeDao {
 
     Collection<Recipe> findNewestRecipes(int pageSize, int pageNumber);
 
-    Collection<Recipe> loadNextRecipes(int pageSize);
+    void save (Recipe recipe);
+
+
 }

@@ -11,6 +11,9 @@ import org.springframework.core.env.Environment;
 import org.springframework.orm.hibernate5.HibernateTransactionManager;
 import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
+import org.springframework.web.multipart.MultipartResolver;
+import org.springframework.web.multipart.commons.CommonsMultipartResolver;
+import org.springframework.web.multipart.support.StandardServletMultipartResolver;
 import org.springframework.web.servlet.ViewResolver;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
@@ -25,16 +28,17 @@ import java.util.logging.Logger;
 @EnableTransactionManagement
 @ComponentScan(basePackages="com.pgruszka93")
 @PropertySource("classpath:persistence-mysql.properties")
-public class DemoAppConfig {
+public class DemoAppConfig{
+
+	private int maxUploadSizeInMb = 5 * 1024 * 1024; // 5 MB
 
 	// set up variable to hold the properties
 	@Autowired
 	private Environment env;
-	
+
 	// set up a logger for diagnostics
 	private Logger logger = Logger.getLogger(getClass().getName());
-	
-	
+
 	// define a bean for ViewResolver
 	@Bean
 	public ViewResolver viewResolver() {
@@ -136,8 +140,19 @@ public class DemoAppConfig {
 		txManager.setSessionFactory(sessionFactory);
 
 		return txManager;
-	}	
-	
+	}
+
+	@Bean
+	public CommonsMultipartResolver multipartResolver() {
+
+		CommonsMultipartResolver cmr = new CommonsMultipartResolver();
+		cmr.setMaxUploadSize(maxUploadSizeInMb * 2);
+		cmr.setMaxUploadSizePerFile(maxUploadSizeInMb); //bytes
+		return cmr;
+
+	}
+
+
 
 }
 

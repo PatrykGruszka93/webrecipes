@@ -8,7 +8,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 @FieldMatch.List({
-    @FieldMatch(first = "password", second = "matchingPassword", message = "The password fields must match")
+    @FieldMatch(first = "password", second = "matchingPassword", message = "Hasła nie pasują do siebie")
 })
 public class CrmUser {
 

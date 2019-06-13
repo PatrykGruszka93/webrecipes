@@ -38,14 +38,11 @@ public class RecipeDaoImpl implements RecipeDao{
         return recipes;
     }
 
-
     @Override
-    public Collection<Recipe> loadNextRecipes(int pageSize){
-
+    public void save (Recipe recipe){
         Session currentSession = sessionFactory.getCurrentSession();
-
-
-        //TODO change null
-        return null;
+        currentSession.saveOrUpdate(recipe);
     }
+
+
 }

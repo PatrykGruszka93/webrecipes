@@ -26,25 +26,61 @@
     <jsp:include page="_menu.jsp" />
 
     <div id="loginbox" style="margin-top: 50px;"
-         class="container col-md-6 col-md-offset-2 col-sm-6 col-sm-offset-2">
+         class="container col-md-8 col-md-offset-2 col-sm-12 col-sm-offset-2">
 
         <div class="card bg-light">
-
-            <div class="card-header">
-                Dodaj nowy przepis
-            </div>
+        <form:form action="${pageContext.request.contextPath}/recipes/processRecipeForm" method="POST" modelAttribute="recipeModel">
 
             <div style="padding-top: 30px" class="card-body">
 
-                <form:form action="${pageContext.request.contextPath}/register/processRegistrationForm">
-                <!-- zmien na prawidlowy kontroler-->
-                <!--modelAttribute="crmUser"
-                class="form-horizontal"> -->
+                <div class="input-group my-2">
+                    <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                    <form:input type="text" path="title" placeholder="Tytuł" class="form-control"></form:input>
+                </div>
 
-                </form:form>
+                <div class="input-group my-2">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">Streszczenie</span>
+                    </div>
+                    <form:textarea path="headerText" class="form-control" aria-label="With textarea"></form:textarea>
+                </div>
+
+                <div class="input-group my-2">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">Opis</span>
+                    </div>
+                    <form:textarea path="text" class="form-control" aria-label="With textarea"></form:textarea>
+                </div>
+
+                     <form:errors path="title" cssClass="text-danger" >
+                        <div class="alert alert-danger my-2" role="alert">
+                            Podaj tytuł!
+                        </div>
+                    </form:errors>
+                    <form:errors path="headerText" cssClass="text-danger">
+                        <div class="alert alert-danger my-2" role="alert">
+                            Podaj streszczenie przepisu!
+                        </div>
+                    </form:errors>
+                    <form:errors path="text" cssClass="text-danger">
+                        <div class="alert alert-danger my-2" role="alert">
+                            Podaj opis przepisu!
+                        </div>
+                    </form:errors>
+
+
             </div>
 
+            <div class="card-header">
+                <div class="btn-group">
+                    <input type="submit" value="Dodaj" class="btn btn-secondary">
+                    <a class="btn btn-secondary" href="${pageContext.request.contextPath}/">Anuluj</a>
+                </div>
+            </div>
+        </form:form>
         </div>
+    </div>
+
 
 </body>
 </html>
