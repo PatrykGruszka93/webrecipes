@@ -30,7 +30,7 @@
 
         <div class="card bg-light">
         <form:form action="${pageContext.request.contextPath}/recipes/processRecipeForm" method="POST" modelAttribute="recipeModel">
-
+            <form:hidden path="id" />
             <div style="padding-top: 30px" class="card-body">
 
                 <div class="input-group my-2">
@@ -73,7 +73,7 @@
 
             <div class="card-header">
                 <div class="btn-group">
-                    <input type="submit" value="Dodaj" class="btn btn-secondary">
+                    <input type="submit" value=${buttonText} class="btn btn-secondary"\>
                     <a class="btn btn-secondary" href="${pageContext.request.contextPath}/">Anuluj</a>
                 </div>
             </div>

@@ -30,6 +30,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 
 @Controller
+@RequestMapping("/recipes")
 public class RecipeController {
 
     @Autowired
@@ -43,16 +44,27 @@ public class RecipeController {
         dataBinder.registerCustomEditor(String.class, stringTrimmerEditor);
     }
 
-    @GetMapping("/recipes/recipeForm")
+    @GetMapping("/addRecipeForm")
     public String showRecipeForm(Model theModel){
         Recipe theRecipe = new Recipe();
         theModel.addAttribute("recipeModel", theRecipe);
+        theModel.addAttribute("buttonText", "Dodaj");
+        return "recipe-form";
+    }
+
+    @GetMapping("/updateRecipeForm")
+    public String showRecipeFormForUpdate(@RequestParam("recipeId") int recipeId,
+                                          Model theModel){
+        Recipe theRecipe = recipeService.findRecipeById(recipeId);
+        theModel.addAttribute("recipeModel", theRecipe);
+        theModel.addAttribute("buttonText", "Edytuj");
+
         return "recipe-form";
     }
 
 
 
-    @PostMapping("/recipes/processRecipeForm")
+    @PostMapping("/processRecipeForm")
     public String processRecipeForm(
             @Valid @ModelAttribute ("recipeModel") RecipeModel recipeModel,
             BindingResult theBindingResult){
@@ -67,7 +79,7 @@ public class RecipeController {
 
     }
 
-    @GetMapping("/recipes/openRecipe")
+    @GetMapping("/openRecipe")
     public String openRecipe(
             @RequestParam("recipeId") int recipeId,
             Model theModel){
@@ -76,6 +88,17 @@ public class RecipeController {
         theModel.addAttribute("recipe", theRecipe);
 
         return "recipe";
+    }
+
+
+
+    @GetMapping("/delete")
+    public String deleteRecipe(@RequestParam("recipeId") int theId) {
+
+        // delete the customer
+        recipeService.delete(theId);
+
+        return "redirect:/userInfo";
     }
 
 

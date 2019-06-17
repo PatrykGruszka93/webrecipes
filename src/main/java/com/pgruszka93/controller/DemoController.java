@@ -50,11 +50,7 @@ public class DemoController {
 		return "add-more-recipes";
 	}
 
-	@GetMapping("/adminPanel")
-	public String showAdminPanel() {
-		
-		return "admin-panel";
-	}
+
 
 }
 

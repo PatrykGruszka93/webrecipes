@@ -79,4 +79,15 @@ public class RecipeDaoImpl implements RecipeDao{
 
         return recipes;
     }
+
+    @Override
+    public void delete(int recipeId) {
+        Session currentSession = sessionFactory.getCurrentSession();
+
+        Query query = currentSession.createQuery("delete from Recipe r where r.id=:recipeId");
+
+        query.setParameter("recipeId", recipeId);
+
+        query.executeUpdate();
+    }
 }

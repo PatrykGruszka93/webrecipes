@@ -4,10 +4,11 @@ import com.pgruszka93.entity.User;
 
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-import java.util.Date;
+
 
 public class RecipeModel {
 
+    private int id;
 
     @NotNull(message = "Tytuł jest wymagany")
     @Size(min = 1, message = "is required")
@@ -22,6 +23,7 @@ public class RecipeModel {
     private String text;
 
 
+
     private User user;
 
 
@@ -29,6 +31,14 @@ public class RecipeModel {
     private String imagePath;
 
     public RecipeModel() {
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getTitle() {

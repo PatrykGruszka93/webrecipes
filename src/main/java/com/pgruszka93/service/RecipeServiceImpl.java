@@ -30,7 +30,11 @@ public class RecipeServiceImpl implements RecipeService{
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String currentPrincipalName = authentication.getName();
 
+
         Recipe theRecipe = new Recipe();
+        if(recipeModel.getId()!=0){
+            theRecipe.setId(recipeModel.getId());
+        }
         theRecipe.setTitle(recipeModel.getTitle());
         theRecipe.setHeaderText(recipeModel.getHeaderText());
         theRecipe.setText(recipeModel.getText());
@@ -55,5 +59,12 @@ public class RecipeServiceImpl implements RecipeService{
     public Collection<Recipe> findRecipesByUsername(String userName) {
         Collection<Recipe> recipes = recipeDao.findRecipesByUsername(userName);
         return recipes;
+    }
+
+    @Override
+    @Transactional
+    public void delete(int recipeId) {
+        recipeDao.delete(recipeId);
+
     }
 }

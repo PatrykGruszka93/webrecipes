@@ -9,3 +9,9 @@ function loadRecipes(elementId, url) {
     xhttp.open("GET", url, true);
     xhttp.send();
 }
+
+function confirmLink(link,message) {
+    if(confirm(message)) {
+        window.location.href=link;
+    }
+}

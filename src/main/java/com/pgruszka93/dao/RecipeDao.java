@@ -14,5 +14,7 @@ public interface RecipeDao {
 
     Collection<Recipe> findRecipesByUsername(String userName);
 
+    void delete (int recipeId);
+
 
 }

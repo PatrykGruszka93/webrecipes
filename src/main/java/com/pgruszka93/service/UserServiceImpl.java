@@ -84,7 +84,7 @@ public class UserServiceImpl implements UserService {
     @Override
 	@Transactional
     public Collection<Recipe> loadNewestRecipes(int pageNumber) {
-	    final int PAGE_SIZE = 2;
+	    final int PAGE_SIZE = 5;
 
         Collection<Recipe> recipes = recipeDao.findNewestRecipes(PAGE_SIZE, pageNumber);
 

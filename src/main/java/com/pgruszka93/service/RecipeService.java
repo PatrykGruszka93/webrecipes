@@ -13,4 +13,6 @@ public interface RecipeService {
 
     Collection<Recipe> findRecipesByUsername(String userName);
 
+    void delete(int recipeId);
+
 }
