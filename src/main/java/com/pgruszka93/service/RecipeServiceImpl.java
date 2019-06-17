@@ -11,6 +11,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Collection;
 import java.util.Date;
 
 
@@ -40,5 +41,19 @@ public class RecipeServiceImpl implements RecipeService{
         theRecipe.setUser(tmpUser);
 
         recipeDao.save(theRecipe);
+    }
+
+    @Override
+    @Transactional
+    public Recipe findRecipeById(int recipeId) {
+        Recipe theRecipe = recipeDao.findRecipeById(recipeId);
+        return theRecipe;
+    }
+
+    @Override
+    @Transactional
+    public Collection<Recipe> findRecipesByUsername(String userName) {
+        Collection<Recipe> recipes = recipeDao.findRecipesByUsername(userName);
+        return recipes;
     }
 }

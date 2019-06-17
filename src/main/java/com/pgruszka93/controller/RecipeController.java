@@ -67,4 +67,18 @@ public class RecipeController {
 
     }
 
+    @GetMapping("/recipes/openRecipe")
+    public String openRecipe(
+            @RequestParam("recipeId") int recipeId,
+            Model theModel){
+
+        Recipe theRecipe = recipeService.findRecipeById(recipeId);
+        theModel.addAttribute("recipe", theRecipe);
+
+        return "recipe";
+    }
+
+
+
+
 }

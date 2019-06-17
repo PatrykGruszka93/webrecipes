@@ -81,14 +81,6 @@ public class UserServiceImpl implements UserService {
 		return roles.stream().map(role -> new SimpleGrantedAuthority(role.getName())).collect(Collectors.toList());
 	}
 
-	@Override
-	@Transactional
-	public Collection<Recipe> loadRecipesByUsername(String userName){
-		User user = userDao.findByUserName(userName);
-		Collection<Recipe> recipes = user.getRecipes();
-		return recipes;
-	}
-
     @Override
 	@Transactional
     public Collection<Recipe> loadNewestRecipes(int pageNumber) {

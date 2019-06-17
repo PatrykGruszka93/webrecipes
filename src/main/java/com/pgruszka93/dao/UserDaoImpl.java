@@ -32,7 +32,7 @@ public class UserDaoImpl implements UserDao {
 		} catch (Exception e) {
 			theUser = null;
 		}
-		System.out.println("Recipes:" + theUser.getRecipes());
+
 		return theUser;
 	}
 

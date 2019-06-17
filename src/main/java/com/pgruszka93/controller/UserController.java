@@ -2,6 +2,7 @@ package com.pgruszka93.controller;
 
 
 import com.pgruszka93.entity.Recipe;
+import com.pgruszka93.service.RecipeService;
 import com.pgruszka93.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -22,6 +23,9 @@ public class UserController {
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private RecipeService recipeService;
+
 
     @GetMapping("/userInfo")
     public String showUserInfo(Model model){
@@ -30,7 +34,7 @@ public class UserController {
         org.springframework.security.core.userdetails.User user= (org.springframework.security.core.userdetails.User) auth.getPrincipal();
         String userName = user.getUsername();
 
-        Collection<Recipe> recipes = userService.loadRecipesByUsername(userName);
+        Collection<Recipe> recipes = recipeService.findRecipesByUsername(userName);
 
         model.addAttribute("recipes", recipes);
 

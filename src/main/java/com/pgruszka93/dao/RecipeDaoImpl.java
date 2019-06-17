@@ -44,5 +44,39 @@ public class RecipeDaoImpl implements RecipeDao{
         currentSession.saveOrUpdate(recipe);
     }
 
+    @Override
+    public Recipe findRecipeById(int recipeId) {
 
+        Session currentSession = sessionFactory.getCurrentSession();
+
+        Query<Recipe> query = currentSession.createQuery("select r from Recipe r join fetch r.user where r.id=:theId", Recipe.class);
+        query.setParameter("theId", recipeId);
+
+        Recipe theRecipe = null;
+
+        try {
+            theRecipe = query.getSingleResult();
+        } catch (Exception e) {
+            theRecipe = null;
+        }
+
+        return theRecipe;
+    }
+
+    @Override
+    public Collection<Recipe> findRecipesByUsername(String userName) {
+
+        Session currentSession = sessionFactory.getCurrentSession();
+
+
+        Query query = currentSession.createQuery("select r from Recipe r join fetch r.user where r.user.userName=:theUserName");
+
+        query.setParameter("theUserName", userName);
+
+
+        Collection <Recipe> recipes = query.list();
+
+
+        return recipes;
+    }
 }

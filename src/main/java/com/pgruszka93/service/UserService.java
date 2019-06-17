@@ -14,8 +14,6 @@ public interface UserService extends UserDetailsService {
 
     void save(CrmUser crmUser);
 
-    Collection<Recipe> loadRecipesByUsername(String userName);
-
     Collection<Recipe> loadNewestRecipes(int pageNumber);
 
 

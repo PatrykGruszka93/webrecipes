@@ -4,8 +4,11 @@
 <c:forEach items="${recipes}" var="recipe">
     <div class="row border bg-light my-sm-2 py-sm-2">
         <div class="col-md-8">
+            <c:url var="openRecipeLink" value="recipes/openRecipe">
+                <c:param name="recipeId" value="${recipe.id}"></c:param>
+            </c:url>
             <div id="title" class="font-weight-bold">
-                <h2>${recipe.title}</h2>
+                <h2><a href="${openRecipeLink}"> ${recipe.title}</a></h2>
             </div>
             <div id="header" class="font-italic">
                     ${recipe.headerText}

@@ -32,8 +32,8 @@ public class DemoSecurityConfig extends WebSecurityConfigurerAdapter {
 	protected void configure(HttpSecurity http) throws Exception {
 
 		http.authorizeRequests()
-			//.antMatchers("/").hasRole("USER")
 			.antMatchers("/adminPanel/**").hasRole("ADMIN")
+			.antMatchers("/recipes/recipeForm").hasRole("USER")
 			.and()
 			.formLogin()
 				.loginPage("/showMyLoginPage")

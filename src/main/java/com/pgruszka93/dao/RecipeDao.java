@@ -10,5 +10,9 @@ public interface RecipeDao {
 
     void save (Recipe recipe);
 
+    Recipe findRecipeById(int recipeId);
+
+    Collection<Recipe> findRecipesByUsername(String userName);
+
 
 }
