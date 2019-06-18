@@ -49,7 +49,7 @@
                 </thead>
                 <tbody>
                 <c:forEach items="${recipes}" var="recipe" varStatus="loopCounter">
-                    <c:url var="openRecipeLink" value="recipes/openRecipe">
+                    <c:url var="openRecipeLink" value="/recipes/openRecipe">
                         <c:param name="recipeId" value="${recipe.id}"></c:param>
                     </c:url>
                     <c:url var="updateRecipeLink" value="/recipes/updateRecipeForm">
