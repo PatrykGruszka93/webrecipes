@@ -1,3 +1,4 @@
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>  
 
@@ -37,7 +38,7 @@
 			<div class="card bg-light">
 
 				<div class="card-header">
-					Register New User
+					Zarejestruj nowego użytkownika
 				</div>
 
 				<div style="padding-top: 30px" class="card-body">
@@ -69,21 +70,21 @@
 						<div style="margin-bottom: 25px" class="input-group">
 							<span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span> 
 							<form:errors path="userName" cssClass="error" />
-							<form:input path="userName" placeholder="username (*)" class="form-control" />
+							<form:input path="userName" placeholder="nazwa użytkownika (*)" class="form-control" />
 						</div>
 
 						<!-- Password -->
 						<div style="margin-bottom: 25px" class="input-group">
 							<span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span> 
 							<form:errors path="password" cssClass="error" />
-							<form:password path="password" placeholder="password (*)" class="form-control" />
+							<form:password path="password" placeholder="hasło (*)" class="form-control" />
 						</div>
 						
 						<!-- Confirm Password -->
 						<div style="margin-bottom: 25px" class="input-group">
 							<span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span> 
 							<form:errors path="matchingPassword" cssClass="error" />
-							<form:password path="matchingPassword" placeholder="confirm password (*)" class="form-control" />
+							<form:password path="matchingPassword" placeholder="powtórz hasło (*)" class="form-control" />
 						</div>
 					
 
@@ -99,7 +100,7 @@
 						<!-- Register Button -->
 						<div style="margin-top: 10px" class="form-group">						
 							<div class="col-sm-6 controls">
-								<button type="submit" class="btn btn-success">Register</button>
+								<button type="submit" class="btn btn-success">Zarejestruj</button>
 							</div>
 						</div>
 						

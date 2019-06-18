@@ -11,8 +11,10 @@ public interface RecipeService {
 
     Recipe findRecipeById(int recipeId);
 
-    Collection<Recipe> findRecipesByUsername(String userName);
+    Collection<Recipe> findRecipesByUsername(String userName, int pageNumber);
 
     void delete(int recipeId);
+
+    int findMaxPageForRecipesList(String userName);
 
 }

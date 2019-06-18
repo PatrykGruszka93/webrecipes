@@ -18,10 +18,10 @@
                         Profil
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                        <a class="dropdown-item" href="${pageContext.request.contextPath}/userInfo">Wyświetl profil</a>
+                        <a class="dropdown-item" href="${pageContext.request.contextPath}/userInfo/1">Wyświetl profil</a>
                         <a class="dropdown-item" href="${pageContext.request.contextPath}/recipes/addRecipeForm">Dodaj przepis</a>
                         <c:if test="${pageContext.request.isUserInRole('ADMIN')}">
-                            <a class="dropdown-item" href="${pageContext.request.contextPath}/adminPanel">Panel admina</a>
+                            <a class="dropdown-item" href="${pageContext.request.contextPath}/adminPanel/">Panel admina</a>
                         </c:if>
                     </div>
                 </li>

@@ -64,15 +64,16 @@ public class RecipeDaoImpl implements RecipeDao{
     }
 
     @Override
-    public Collection<Recipe> findRecipesByUsername(String userName) {
+    public Collection<Recipe> findRecipesByUsername(String userName, int pageSize, int pageNumber) {
 
         Session currentSession = sessionFactory.getCurrentSession();
 
-
-        Query query = currentSession.createQuery("select r from Recipe r join fetch r.user where r.user.userName=:theUserName");
+        Query query = currentSession.createQuery("select r from Recipe r join fetch r.user where r.user.userName=:theUserName order by r.id DESC");
 
         query.setParameter("theUserName", userName);
 
+        query.setFirstResult(pageSize*(pageNumber-1));
+        query.setMaxResults(pageSize);
 
         Collection <Recipe> recipes = query.list();
 
@@ -89,5 +90,15 @@ public class RecipeDaoImpl implements RecipeDao{
         query.setParameter("recipeId", recipeId);
 
         query.executeUpdate();
+    }
+
+    @Override
+    public Long countUsersRecipes(String userName) {
+
+        Session currentSession = sessionFactory.getCurrentSession();
+                Query query = currentSession.createQuery( "Select count (r.id) from Recipe r join r.user where r.user.userName=:theUserName");
+        query.setParameter("theUserName", userName);
+        Long countResults = (Long) query.uniqueResult();
+        return countResults;
     }
 }

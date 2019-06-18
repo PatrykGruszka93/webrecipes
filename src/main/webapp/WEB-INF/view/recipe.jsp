@@ -31,9 +31,19 @@
 
 
 <div class="container">
-    ${recipe.title} <br/>
-    ${recipe.headerText}<br/>
+
+    <div id="title" class="font-weight-bold">
+
+        <h1>${recipe.title}</h1>
+    </div>
+    <div id="headerText" class="font-weight-bold text-justify">
+
+        ${recipe.headerText}<br/>
+    </div>
+    <div id="text" class="text-justify">
     ${recipe.text}<br/>
+
+    </div>
 
 </div>
 

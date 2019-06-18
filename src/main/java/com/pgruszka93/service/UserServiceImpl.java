@@ -91,6 +91,12 @@ public class UserServiceImpl implements UserService {
 	    return recipes;
     }
 
+	@Override
+	@Transactional
+	public Collection<User> findAllUsers() {
+		Collection<User> users = userDao.findAllUsers();
+		return users;
+	}
 
 
 }

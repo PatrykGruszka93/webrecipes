@@ -22,11 +22,7 @@ public class RecipeModel {
     @Size(min = 1, message = "is required")
     private String text;
 
-
-
     private User user;
-
-
 
     private String imagePath;
 

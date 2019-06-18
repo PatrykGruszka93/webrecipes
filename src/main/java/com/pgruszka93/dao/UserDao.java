@@ -12,7 +12,7 @@ public interface UserDao {
     
     void save(User user);
 
-
+    Collection<User> findAllUsers();
 
 
 }

@@ -63,14 +63,13 @@ public class RecipeController {
     }
 
 
-
     @PostMapping("/processRecipeForm")
     public String processRecipeForm(
             @Valid @ModelAttribute ("recipeModel") RecipeModel recipeModel,
             BindingResult theBindingResult){
 
         if (theBindingResult.hasErrors()){
-            return "recipe-form";
+            return "redirect:recipe-form";
         }
 
         recipeService.save(recipeModel);
@@ -98,7 +97,7 @@ public class RecipeController {
         // delete the customer
         recipeService.delete(theId);
 
-        return "redirect:/userInfo";
+        return "redirect:";
     }
 
 

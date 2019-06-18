@@ -23,13 +23,13 @@ public class RecipeServiceImpl implements RecipeService{
     @Autowired
     private UserDao userDao;
 
+    private final int PAGE_SIZE = 5;
+
     @Override
     @Transactional
     public void save(RecipeModel recipeModel) {
-
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String currentPrincipalName = authentication.getName();
-
 
         Recipe theRecipe = new Recipe();
         if(recipeModel.getId()!=0){
@@ -56,8 +56,9 @@ public class RecipeServiceImpl implements RecipeService{
 
     @Override
     @Transactional
-    public Collection<Recipe> findRecipesByUsername(String userName) {
-        Collection<Recipe> recipes = recipeDao.findRecipesByUsername(userName);
+    public Collection<Recipe> findRecipesByUsername(String userName, int pageNumber) {
+        Collection<Recipe> recipes = recipeDao.findRecipesByUsername(userName, PAGE_SIZE, pageNumber);
+
         return recipes;
     }
 
@@ -65,6 +66,15 @@ public class RecipeServiceImpl implements RecipeService{
     @Transactional
     public void delete(int recipeId) {
         recipeDao.delete(recipeId);
-
     }
+
+    @Override
+    @Transactional
+    public int findMaxPageForRecipesList(String userName) {
+        Long countResults = recipeDao.countUsersRecipes(userName);
+        int lastPageNumber = (int) (Math.ceil((double)countResults / PAGE_SIZE));
+
+        return lastPageNumber;
+    }
+
 }

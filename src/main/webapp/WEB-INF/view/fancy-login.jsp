@@ -1,3 +1,4 @@
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>  
 
@@ -34,7 +35,7 @@
 
 
 				<div class="card-header">
-					Sign In
+					Zaloguj się
 				</div>
 
 				<div style="padding-top: 30px" class="card-body">
@@ -53,7 +54,7 @@
 									<c:if test="${param.error != null}">
 										
 										<div class="alert alert-danger col-xs-offset-1 col-xs-10">
-											Invalid username and password.
+											Nieprawidłowa nazwa użytkownika i/lub hasło
 										</div>
 		
 									</c:if>
@@ -63,7 +64,7 @@
 									<c:if test="${param.logout != null}">
 										            
 										<div class="alert alert-success col-xs-offset-1 col-xs-10">
-											You have been logged out.
+											Zostałeś wylogowany
 										</div>
 								    
 									</c:if>
@@ -76,14 +77,14 @@
 						<div style="margin-bottom: 25px" class="input-group">
 							<span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span> 
 							
-							<input type="text" name="username" placeholder="username" class="form-control">
+							<input type="text" name="username" placeholder="nazwa użytkownika" class="form-control">
 						</div>
 
 						<!-- Password -->
 						<div style="margin-bottom: 25px" class="input-group">
 							<span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span> 
 							
-							<input type="password" name="password" placeholder="password" class="form-control" >
+							<input type="password" name="password" placeholder="hasło" class="form-control" >
 						</div>
 
 						<!-- Login/Submit Button -->

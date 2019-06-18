@@ -12,9 +12,10 @@ public interface RecipeDao {
 
     Recipe findRecipeById(int recipeId);
 
-    Collection<Recipe> findRecipesByUsername(String userName);
+    Collection<Recipe> findRecipesByUsername(String userName, int pageSize, int pageNumber);
 
     void delete (int recipeId);
 
+    Long countUsersRecipes (String userName);
 
 }

@@ -16,5 +16,6 @@ public interface UserService extends UserDetailsService {
 
     Collection<Recipe> loadNewestRecipes(int pageNumber);
 
+    Collection<User> findAllUsers();
 
 }

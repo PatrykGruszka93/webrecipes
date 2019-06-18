@@ -42,7 +42,6 @@
             <table class="table">
                 <thead>
                 <tr >
-                    <th class="text-center" scope="col">#</th>
                     <th class="text-center" scope="col">Tytuł</th>
                     <th class="text-center" scope="col">Edytuj</th>
                     <th class="text-center" scope="col">Usuń</th>
@@ -60,7 +59,6 @@
                         <c:param name="recipeId" value="${recipe.id}"></c:param>
                     </c:url>
                     <tr>
-                        <th class="text-center" scope="row">${loopCounter.count}</th>
                         <td class="text-center"><a href="${openRecipeLink}"> ${recipe.title}</a></td>
                         <td class="text-center"><a href="${updateRecipeLink}" class="btn btn-light">Edytuj</a> </td>
                         <td class="text-center"><a class="btn btn-light" onclick="confirmLink('${deleteRecipeLink}','Czy na pewno chcesz usunąć przepis?')">Usuń</a></td>
@@ -69,6 +67,15 @@
                 </tbody>
 
             </table>
+            <nav aria-label="Page navigation example">
+                <ul class="pagination">
+                    <li class="page-item"><a class="page-link" href="${pageContext.request.contextPath}/userInfo/1">Pierwszy</a></li>
+                    <c:forEach begin="1" end="${maxPage}" var="i" varStatus="loop">
+                        <li class="page-item"><a class="page-link" href="${pageContext.request.contextPath}/userInfo/${i}">${i}</a></li>
+                    </c:forEach>
+                    <li class="page-item"><a class="page-link" href="${pageContext.request.contextPath}/userInfo/${maxPage}">Ostatni</a></li>
+                </ul>
+            </nav>
 
         </security:authorize>
     </div>
@@ -76,11 +83,8 @@
 
     <security:authorize access="hasRole('ADMIN')">
 
-        <!-- Add a link to point to /systems ... this is for the admins -->
-
         <p>
-            <a href="${pageContext.request.contextPath}/adminPanel">IT Systems Meeting</a>
-            (Only for Admin peeps)
+            <a href="${pageContext.request.contextPath}/adminPanel/">Panel admina</a>
         </p>
 
     </security:authorize>
@@ -91,9 +95,4 @@
 </html>
 
 
-
-
-</body>
-
-</html>
 

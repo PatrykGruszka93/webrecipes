@@ -12,6 +12,8 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.security.Principal;
 import java.util.Collection;
@@ -27,16 +29,19 @@ public class UserController {
     private RecipeService recipeService;
 
 
-    @GetMapping("/userInfo")
-    public String showUserInfo(Model model){
+    @GetMapping("/userInfo/{pageNumberUsersRecipes}")
+    public String showUserInfo(@PathVariable("pageNumberUsersRecipes") int pageNumber, Model model){
         Authentication auth= SecurityContextHolder.getContext().getAuthentication();
 
         org.springframework.security.core.userdetails.User user= (org.springframework.security.core.userdetails.User) auth.getPrincipal();
         String userName = user.getUsername();
 
-        Collection<Recipe> recipes = recipeService.findRecipesByUsername(userName);
+        int maxPage = recipeService.findMaxPageForRecipesList(userName);
+
+        Collection<Recipe> recipes = recipeService.findRecipesByUsername(userName, pageNumber);
 
         model.addAttribute("recipes", recipes);
+        model.addAttribute("maxPage", maxPage);
 
         return "user-info";
     }

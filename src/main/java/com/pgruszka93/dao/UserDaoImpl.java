@@ -45,7 +45,17 @@ public class UserDaoImpl implements UserDao {
 		currentSession.saveOrUpdate(theUser);
 	}
 
+	@Override
+	public Collection<User> findAllUsers() {
 
+		Session currentSession = sessionFactory.getCurrentSession();
+
+		Query query = currentSession.createQuery("select u from User u order by u.userName");
+
+		Collection<User> users = query.list();
+
+		return users;
+	}
 
 
 }
