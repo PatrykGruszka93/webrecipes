@@ -15,6 +15,7 @@ import java.util.Collection;
 @RequestMapping("/adminPanel")
 public class AdminController {
 
+    //test
 
     @Autowired
     private UserService userService;
