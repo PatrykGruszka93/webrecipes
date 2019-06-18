@@ -26,7 +26,6 @@ public class DemoController {
         request.getSession().setAttribute("pageNumber",1);
 
         int pageNumber = (Integer)request.getSession().getAttribute("pageNumber");
-        System.out.println("1.pageNumber ----> " + pageNumber);
         Collection<Recipe> recipes = userService.loadNewestRecipes(pageNumber);
 
 
@@ -39,10 +38,8 @@ public class DemoController {
 	public String addMoreRecipes(Model model, HttpServletRequest request){
 
         int pageNumber = (Integer)request.getSession().getAttribute("pageNumber");
-        System.out.println("2.pageNumber ----> " + pageNumber);
         int currentPageNumber = pageNumber +1;
         request.getSession().setAttribute("pageNumber", currentPageNumber);
-        System.out.println("3.pageNumber ----> " + currentPageNumber);
 	    Collection<Recipe> recipes = userService.loadNewestRecipes(currentPageNumber);
 
 		model.addAttribute("recipes", recipes);

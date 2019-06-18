@@ -80,7 +80,6 @@
         </security:authorize>
     </div>
 
-
     <security:authorize access="hasRole('ADMIN')">
 
         <p>
