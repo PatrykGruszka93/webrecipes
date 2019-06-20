@@ -17,4 +17,7 @@ public interface RecipeService {
 
     int findMaxPageForRecipesList(String userName);
 
+    Collection<Recipe> searchRecipes(String text, int pageNumber);
+
+    int findMaxPageForSearchedRecipes(String text);
 }

@@ -84,6 +84,9 @@ public class RecipeController {
             Model theModel){
 
         Recipe theRecipe = recipeService.findRecipeById(recipeId);
+        if(theRecipe == null){
+            return "404page";
+        }
         theModel.addAttribute("recipe", theRecipe);
 
         return "recipe";

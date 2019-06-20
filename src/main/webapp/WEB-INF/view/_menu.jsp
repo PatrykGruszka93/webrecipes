@@ -27,12 +27,12 @@
                 </li>
                 </c:if>
 
-
-
             </ul>
             <ul class="nav navbar-nav navbar-right">
-                <form class="form-inline">
-                    <input class="form-control mr-sm-2" type="search" placeholder="Szukaj" aria-label="Szukaj">
+
+                <form method="get" action="${pageContext.request.contextPath}/search" class="form-inline">
+                    <input class="form-control mr-sm-2" name="query" type="text" placeholder="Szukaj" aria-label="Szukaj">
+                    <input type="hidden" name="pageNumber" value="1">
                     <button class="btn btn-light mr-2 mr-sm-2" type="submit">Szukaj</button>
                 </form>
                 <c:if test="${pageContext.request.userPrincipal.name == null}">

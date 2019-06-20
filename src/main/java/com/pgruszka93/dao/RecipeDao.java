@@ -18,4 +18,8 @@ public interface RecipeDao {
 
     Long countUsersRecipes (String userName);
 
+    Collection<Recipe> searchRecipes(String text, int pageSize, int pageNumber);
+
+    Long countFoundRecipes(String text);
+
 }

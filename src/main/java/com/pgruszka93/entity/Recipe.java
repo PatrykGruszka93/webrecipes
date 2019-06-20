@@ -2,6 +2,9 @@ package com.pgruszka93.entity;
 
 
 import javax.persistence.*;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 @Entity
@@ -100,6 +103,12 @@ public class Recipe {
     public void setUser(User user) {
         this.user = user;
     }
+
+    public String getFormatedDate(){
+        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+        return df.format(this.date);
+    }
+
 
     @Override
     public String toString() {

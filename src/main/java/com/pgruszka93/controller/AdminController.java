@@ -1,6 +1,5 @@
 package com.pgruszka93.controller;
 
-import com.pgruszka93.dao.UserDao;
 import com.pgruszka93.entity.User;
 import com.pgruszka93.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +14,6 @@ import java.util.Collection;
 @RequestMapping("/adminPanel")
 public class AdminController {
 
-    //test
 
     @Autowired
     private UserService userService;

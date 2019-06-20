@@ -77,4 +77,20 @@ public class RecipeServiceImpl implements RecipeService{
         return lastPageNumber;
     }
 
+    @Override
+    @Transactional
+    public Collection<Recipe> searchRecipes(String text, int pageNumber) {
+        Collection<Recipe> recipes = recipeDao.searchRecipes(text, PAGE_SIZE, pageNumber);
+        return recipes;
+    }
+
+    @Override
+    @Transactional
+    public int findMaxPageForSearchedRecipes(String text) {
+        Long countResults = recipeDao.countFoundRecipes(text);
+        int lastPageNumber = (int) (Math.ceil((double)countResults / PAGE_SIZE));
+
+        return lastPageNumber;
+    }
+
 }

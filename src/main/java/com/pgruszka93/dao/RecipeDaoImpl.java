@@ -24,17 +24,13 @@ public class RecipeDaoImpl implements RecipeDao{
 
     @Override
     public Collection<Recipe> findNewestRecipes(int pageSize, int pageNumber) {
-
-
         Session currentSession = sessionFactory.getCurrentSession();
-
 
         Query query = currentSession.createQuery("select r from Recipe r join fetch r.user order by r.id DESC");
         query.setFirstResult(pageSize*(pageNumber-1));
         query.setMaxResults(pageSize);
 
         Collection <Recipe> recipes = query.list();
-
         return recipes;
     }
 
@@ -51,9 +47,7 @@ public class RecipeDaoImpl implements RecipeDao{
 
         Query<Recipe> query = currentSession.createQuery("select r from Recipe r join fetch r.user where r.id=:theId", Recipe.class);
         query.setParameter("theId", recipeId);
-
         Recipe theRecipe = null;
-
         try {
             theRecipe = query.getSingleResult();
         } catch (Exception e) {
@@ -65,13 +59,10 @@ public class RecipeDaoImpl implements RecipeDao{
 
     @Override
     public Collection<Recipe> findRecipesByUsername(String userName, int pageSize, int pageNumber) {
-
         Session currentSession = sessionFactory.getCurrentSession();
 
         Query query = currentSession.createQuery("select r from Recipe r join fetch r.user where r.user.userName=:theUserName order by r.id DESC");
-
         query.setParameter("theUserName", userName);
-
         query.setFirstResult(pageSize*(pageNumber-1));
         query.setMaxResults(pageSize);
 
@@ -86,7 +77,6 @@ public class RecipeDaoImpl implements RecipeDao{
         Session currentSession = sessionFactory.getCurrentSession();
 
         Query query = currentSession.createQuery("delete from Recipe r where r.id=:recipeId");
-
         query.setParameter("recipeId", recipeId);
 
         query.executeUpdate();
@@ -94,11 +84,39 @@ public class RecipeDaoImpl implements RecipeDao{
 
     @Override
     public Long countUsersRecipes(String userName) {
-
         Session currentSession = sessionFactory.getCurrentSession();
-                Query query = currentSession.createQuery( "Select count (r.id) from Recipe r join r.user where r.user.userName=:theUserName");
+
+        Query query = currentSession.createQuery( "select count (r.id) from Recipe r join r.user where r.user.userName=:theUserName");
         query.setParameter("theUserName", userName);
+
         Long countResults = (Long) query.uniqueResult();
         return countResults;
     }
+
+    @Override
+    public Collection<Recipe> searchRecipes(String text, int pageSize, int pageNumber) {
+        Session currentSession = sessionFactory.getCurrentSession();
+
+        Query query = currentSession.createQuery("select r from Recipe r join fetch r.user where r.title like concat('%',?1,'%') order by r.title");
+        query.setParameter(1,text);
+
+        query.setFirstResult(pageSize*(pageNumber-1));
+        query.setMaxResults(pageSize);
+
+        Collection<Recipe> recipes = query.list();
+        return recipes;
+    }
+
+    @Override
+    public Long countFoundRecipes(String text) {
+        Session currentSession = sessionFactory.getCurrentSession();
+
+        Query query = currentSession.createQuery( "select count (r.id) from Recipe r  where r.title like concat('%',?1,'%')");
+        query.setParameter(1, text);
+
+        Long countResults = (Long) query.uniqueResult();
+        return countResults;
+    }
+
+
 }
