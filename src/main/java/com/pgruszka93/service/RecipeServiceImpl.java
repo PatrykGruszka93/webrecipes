@@ -2,6 +2,7 @@ package com.pgruszka93.service;
 
 import com.pgruszka93.dao.RecipeDao;
 import com.pgruszka93.dao.UserDao;
+import com.pgruszka93.entity.Comment;
 import com.pgruszka93.entity.Recipe;
 import com.pgruszka93.entity.User;
 import com.pgruszka93.model.RecipeModel;
@@ -30,6 +31,7 @@ public class RecipeServiceImpl implements RecipeService{
     public void save(RecipeModel recipeModel) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String currentPrincipalName = authentication.getName();
+        User tmpUser = userDao.findByUserName(currentPrincipalName);
 
         Recipe theRecipe = new Recipe();
         if(recipeModel.getId()!=0){
@@ -39,9 +41,6 @@ public class RecipeServiceImpl implements RecipeService{
         theRecipe.setHeaderText(recipeModel.getHeaderText());
         theRecipe.setText(recipeModel.getText());
         theRecipe.setDate(new Date());
-
-        User tmpUser = userDao.findByUserName(currentPrincipalName);
-
         theRecipe.setUser(tmpUser);
 
         recipeDao.save(theRecipe);
@@ -91,6 +90,14 @@ public class RecipeServiceImpl implements RecipeService{
         int lastPageNumber = (int) (Math.ceil((double)countResults / PAGE_SIZE));
 
         return lastPageNumber;
+    }
+
+    @Override
+    @Transactional
+    public Collection<Comment> findAllRecipeComments(int recipeId) {
+        Collection<Comment> comments = recipeDao.findAllRecipeComments(recipeId);
+
+        return comments;
     }
 
 }

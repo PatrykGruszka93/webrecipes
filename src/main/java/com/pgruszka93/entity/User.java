@@ -36,6 +36,9 @@ public class User {
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
 	private Collection<Recipe> recipes;
 
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
+	private Collection<Comment> comments;
+
 
 	public User() {
 	}

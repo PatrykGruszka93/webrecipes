@@ -1,5 +1,6 @@
 package com.pgruszka93.dao;
 
+import com.pgruszka93.entity.Comment;
 import com.pgruszka93.entity.Recipe;
 
 import java.util.Collection;
@@ -21,5 +22,7 @@ public interface RecipeDao {
     Collection<Recipe> searchRecipes(String text, int pageSize, int pageNumber);
 
     Long countFoundRecipes(String text);
+
+    Collection<Comment> findAllRecipeComments(int recipeId);
 
 }

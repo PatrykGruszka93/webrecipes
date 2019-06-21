@@ -14,7 +14,6 @@ import java.util.Collection;
 @RequestMapping("/adminPanel")
 public class AdminController {
 
-
     @Autowired
     private UserService userService;
 
@@ -27,8 +26,4 @@ public class AdminController {
 
         return "admin-panel";
     }
-
-
-
-
 }

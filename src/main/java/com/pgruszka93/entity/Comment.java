@@ -2,6 +2,8 @@ package com.pgruszka93.entity;
 
 
 import javax.persistence.*;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 @Entity
 @Table(name = "comments")
@@ -16,23 +18,25 @@ public class Comment {
     private String text;
 
     @Column(name = "date")
-    private String date;
+    Date date;
 
-    @Column(name ="users_id")
-    private int usersId;
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "users_id", nullable=false)
+    private User user;
 
-    @Column(name = "recipes_id")
-    private int recipesId;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "recipes_id", nullable=false)
+    private Recipe recipe;
 
 
     public Comment() {
     }
 
-    public Comment(String text, String date, int usersId, int recipesId) {
+    public Comment(String text, Date date, User user, Recipe recipe) {
         this.text = text;
         this.date = date;
-        this.usersId = usersId;
-        this.recipesId = recipesId;
+        this.user = user;
+        this.recipe = recipe;
     }
 
     public int getId() {
@@ -51,38 +55,33 @@ public class Comment {
         this.text = text;
     }
 
-    public String getDate() {
+    public Date getDate() {
         return date;
     }
 
-    public void setDate(String date) {
+    public void setDate(Date date) {
         this.date = date;
     }
 
-    public int getUsersId() {
-        return usersId;
+    public User getUser() {
+        return user;
     }
 
-    public void setUsersId(int usersId) {
-        this.usersId = usersId;
+    public void setUser(User user) {
+        this.user = user;
     }
 
-    public int getRecipesId() {
-        return recipesId;
+    public Recipe getRecipe() {
+        return recipe;
     }
 
-    public void setRecipesId(int recipesId) {
-        this.recipesId = recipesId;
+    public void setRecipe(Recipe recipe) {
+        this.recipe = recipe;
     }
 
-    @Override
-    public String toString() {
-        return "Comment{" +
-                "id=" + id +
-                ", text='" + text + '\'' +
-                ", date='" + date + '\'' +
-                ", usersId=" + usersId +
-                ", recipesId=" + recipesId +
-                '}';
+    public String getFormatedDate(){
+        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+        return df.format(this.date);
     }
+
 }

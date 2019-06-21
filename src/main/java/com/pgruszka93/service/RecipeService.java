@@ -1,5 +1,6 @@
 package com.pgruszka93.service;
 
+import com.pgruszka93.entity.Comment;
 import com.pgruszka93.entity.Recipe;
 import com.pgruszka93.model.RecipeModel;
 
@@ -20,4 +21,6 @@ public interface RecipeService {
     Collection<Recipe> searchRecipes(String text, int pageNumber);
 
     int findMaxPageForSearchedRecipes(String text);
+
+    Collection<Comment> findAllRecipeComments(int recipeId);
 }

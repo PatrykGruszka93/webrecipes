@@ -5,6 +5,7 @@ import javax.persistence.*;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Collection;
 import java.util.Date;
 
 @Entity
@@ -35,17 +36,21 @@ public class Recipe {
     @JoinColumn(name = "users_id", nullable=false)
     private User user;
 
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "recipe")
+    private Collection<Comment> comments;
+
 
     public Recipe() {
     }
 
-    public Recipe(String title, String headerText, String text, String imagePath, Date date, User user) {
+    public Recipe(String title, String headerText, String text, String imagePath, Date date, User user, Collection<Comment> comments) {
         this.title = title;
         this.headerText = headerText;
         this.text = text;
         this.imagePath = imagePath;
         this.date = date;
         this.user = user;
+        this.comments = comments;
     }
 
     public int getId() {
@@ -104,11 +109,18 @@ public class Recipe {
         this.user = user;
     }
 
+    public Collection<Comment> getComments() {
+        return comments;
+    }
+
+    public void setComments(Collection<Comment> comments) {
+        this.comments = comments;
+    }
+
     public String getFormatedDate(){
         SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm");
         return df.format(this.date);
     }
-
 
     @Override
     public String toString() {
@@ -120,6 +132,7 @@ public class Recipe {
                 ", imagePath='" + imagePath + '\'' +
                 ", date=" + date +
                 ", user=" + user +
+                ", comments=" + comments +
                 '}';
     }
 }

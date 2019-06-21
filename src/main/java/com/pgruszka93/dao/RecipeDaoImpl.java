@@ -1,5 +1,6 @@
 package com.pgruszka93.dao;
 
+import com.pgruszka93.entity.Comment;
 import com.pgruszka93.entity.Recipe;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
@@ -111,11 +112,22 @@ public class RecipeDaoImpl implements RecipeDao{
     public Long countFoundRecipes(String text) {
         Session currentSession = sessionFactory.getCurrentSession();
 
-        Query query = currentSession.createQuery( "select count (r.id) from Recipe r  where r.title like concat('%',?1,'%')");
+        Query query = currentSession.createQuery( "select count (r.id) from Recipe r where r.title like concat('%',?1,'%')");
         query.setParameter(1, text);
 
         Long countResults = (Long) query.uniqueResult();
         return countResults;
+    }
+
+    @Override
+    public Collection<Comment> findAllRecipeComments(int recipeId) {
+
+        Session currentSession = sessionFactory.getCurrentSession();
+        Query query = currentSession.createQuery("select r.comments from Recipe r where r.id=:theId");
+        query.setParameter("theId", recipeId);
+
+        Collection<Comment> comments = query.list();
+        return comments;
     }
 
 

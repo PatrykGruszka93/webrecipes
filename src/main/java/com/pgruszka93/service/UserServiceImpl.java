@@ -70,8 +70,8 @@ public class UserServiceImpl implements UserService {
 	@Transactional
 	public UserDetails loadUserByUsername(String userName) throws UsernameNotFoundException {
 		User user = userDao.findByUserName(userName);
-		if (user == null) {
-			throw new UsernameNotFoundException("Invalid username or password.");
+		if (user == null || !(user.isActive())) {
+			throw new UsernameNotFoundException("Nieprawidłowa nazwa użytkownika i/lub hasło.");
 		}
 		return new org.springframework.security.core.userdetails.User(user.getUserName(), user.getPassword(),
 				mapRolesToAuthorities(user.getRoles()));

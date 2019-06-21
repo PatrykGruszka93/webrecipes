@@ -1,8 +1,10 @@
 package com.pgruszka93.controller;
 
-
+import com.pgruszka93.entity.Comment;
 import com.pgruszka93.entity.Recipe;
+import com.pgruszka93.model.CommentModel;
 import com.pgruszka93.model.RecipeModel;
+import com.pgruszka93.service.CommentService;
 import com.pgruszka93.service.RecipeService;
 import com.pgruszka93.user.CrmUser;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,6 +30,7 @@ import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.Collection;
 
 @Controller
 @RequestMapping("/recipes")
@@ -35,6 +38,9 @@ public class RecipeController {
 
     @Autowired
     RecipeService recipeService;
+
+    @Autowired
+    CommentService commentService;
 
     @InitBinder
     public void initBinder(WebDataBinder dataBinder) {
@@ -53,8 +59,7 @@ public class RecipeController {
     }
 
     @GetMapping("/updateRecipeForm")
-    public String showRecipeFormForUpdate(@RequestParam("recipeId") int recipeId,
-                                          Model theModel){
+    public String showRecipeFormForUpdate(@RequestParam("recipeId") int recipeId, Model theModel){
         Recipe theRecipe = recipeService.findRecipeById(recipeId);
         theModel.addAttribute("recipeModel", theRecipe);
         theModel.addAttribute("buttonText", "Edytuj");
@@ -73,9 +78,7 @@ public class RecipeController {
         }
 
         recipeService.save(recipeModel);
-
         return "redirect:/";
-
     }
 
     @GetMapping("/openRecipe")
@@ -87,12 +90,14 @@ public class RecipeController {
         if(theRecipe == null){
             return "404page";
         }
+        Collection<Comment> comments = recipeService.findAllRecipeComments(recipeId);
+
         theModel.addAttribute("recipe", theRecipe);
+        theModel.addAttribute("commentModel", new Comment());
+        theModel.addAttribute("comments", comments);
 
         return "recipe";
     }
-
-
 
     @GetMapping("/delete")
     public String deleteRecipe(@RequestParam("recipeId") int theId) {
@@ -100,10 +105,18 @@ public class RecipeController {
         // delete the customer
         recipeService.delete(theId);
 
-        return "redirect:";
+        return "redirect:/";
     }
 
+    @PostMapping("/processCommentForm")
+    public String addComment(@Valid @ModelAttribute("commentModel")CommentModel commentModel, @RequestParam("recipeId") int recipeId, BindingResult theBindingResult){
 
+        if (theBindingResult.hasErrors()){
+            return "redirect:/recipes/openRecipe?recipeId=" + recipeId;
+        }
 
+        commentService.save(commentModel, recipeId);
 
+        return "redirect:/recipes/openRecipe?recipeId=" + recipeId;
+    }
 }
