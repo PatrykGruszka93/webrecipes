@@ -102,7 +102,9 @@ public class RecipeController {
     @GetMapping("/delete")
     public String deleteRecipe(@RequestParam("recipeId") int theId) {
 
-        // delete the customer
+
+        commentService.deleteAllFromRecipe(theId);
+
         recipeService.delete(theId);
 
         return "redirect:/";

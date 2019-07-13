@@ -6,4 +6,8 @@ public interface CommentDao {
 
     void save(Comment comment);
 
+    void delete(int commentId);
+
+    void deleteAllFromRecipe(int recipeId);
+
 }

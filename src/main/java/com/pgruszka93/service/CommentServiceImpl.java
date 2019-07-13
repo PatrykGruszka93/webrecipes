@@ -47,4 +47,18 @@ public class CommentServiceImpl implements CommentService{
 
         commentDao.save(theComment);
     }
+
+    @Override
+    @Transactional
+    public void delete(int commentId) {
+        commentDao.delete(commentId);
+    }
+
+    @Override
+    @Transactional
+    public void deleteAllFromRecipe(int recipeId){
+        commentDao.deleteAllFromRecipe(recipeId);
+    }
+
+
 }
