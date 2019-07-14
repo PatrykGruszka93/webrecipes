@@ -77,6 +77,7 @@ public class RecipeController {
             return "redirect:recipe-form";
         }
 
+        System.out.println("-------> title: " + recipeModel.getTitle());
         recipeService.save(recipeModel);
         return "redirect:/";
     }
