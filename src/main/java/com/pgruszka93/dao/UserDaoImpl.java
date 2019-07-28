@@ -2,6 +2,7 @@ package com.pgruszka93.dao;
 
 
 import com.pgruszka93.entity.Recipe;
+import com.pgruszka93.entity.Role;
 import com.pgruszka93.entity.User;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -9,6 +10,7 @@ import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import java.security.AccessControlException;
 import java.util.Collection;
 
 @Repository
@@ -56,6 +58,52 @@ public class UserDaoImpl implements UserDao {
 
 		return users;
 	}
+
+    @Override
+    public void changeEnableStatus(long userId) throws AccessControlException{
+        Session currentSession = sessionFactory.getCurrentSession();
+        if(checkIfIsAdmin(userId)){
+            throw new AccessControlException("Administrators can't be disabled.");
+
+        }
+        boolean userEnabled = checkEnableStatus(userId);
+
+        Query<User> query = currentSession.createQuery("update User set active =:enableStatus where id=:userId");
+
+        query.setParameter("userId",userId);
+        if(userEnabled){
+        	query.setParameter("enableStatus", false);
+		} else {
+        	query.setParameter("enableStatus", true);
+		}
+
+        query.executeUpdate();
+    }
+
+    private boolean checkEnableStatus(long userId){
+		Session currentSession = sessionFactory.getCurrentSession();
+		Query<Boolean> query = currentSession.createQuery("select u.active from User u where id=:userId");
+		query.setParameter("userId",userId);
+		boolean result = query.getSingleResult();
+
+		return result;
+	}
+
+	private boolean checkIfIsAdmin(long userId){
+        Session currentSession = sessionFactory.getCurrentSession();
+        Query<Role> query = currentSession.createQuery("select u.roles from User u where u.id=:userId");
+        query.setParameter("userId",userId);
+        Collection<Role> result = query.list();
+        for(Role role : result){
+            System.out.println(role.getName());
+            if(role.getName().equals("ROLE_ADMIN")){
+                return true;
+            }
+        }
+        return false;
+    }
+
+
 
 
 }

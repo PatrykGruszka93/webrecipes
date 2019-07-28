@@ -42,7 +42,6 @@ public class DemoAppConfig{
 	// define a bean for ViewResolver
 	@Bean
 	public ViewResolver viewResolver() {
-		
 		InternalResourceViewResolver viewResolver = new InternalResourceViewResolver();
 		
 		viewResolver.setPrefix("/WEB-INF/view/");
@@ -52,8 +51,6 @@ public class DemoAppConfig{
 
 		return viewResolver;
 	}
-	
-	// define a bean for our security datasource
 	
 	@Bean
 	public DataSource securityDataSource() {
@@ -94,14 +91,9 @@ public class DemoAppConfig{
 		return securityDataSource;
 	}
 	
-	// need a helper method 
-	// read environment property and convert to int
-	
 	private int getIntProperty(String propName) {
-		
 		String propVal = env.getProperty(propName);
-		
-		// now convert to int
+
 		int intPropVal = Integer.parseInt(propVal);
 		
 		return intPropVal;
@@ -109,7 +101,6 @@ public class DemoAppConfig{
 	
 	private Properties getHibernateProperties() {
 
-		// set hibernate properties
 		Properties props = new Properties();
 
 		props.setProperty("hibernate.dialect", env.getProperty("hibernate.dialect"));
@@ -118,7 +109,6 @@ public class DemoAppConfig{
 		return props;				
 	}
 
-	
 	@Bean
 	public LocalSessionFactoryBean sessionFactory(){
 		
@@ -136,7 +126,6 @@ public class DemoAppConfig{
 	@Bean
 	@Autowired
 	public HibernateTransactionManager transactionManager(SessionFactory sessionFactory) {
-		
 		// setup transaction manager based on session factory
 		HibernateTransactionManager txManager = new HibernateTransactionManager();
 		txManager.setSessionFactory(sessionFactory);
@@ -146,12 +135,10 @@ public class DemoAppConfig{
 
 	@Bean
 	public CommonsMultipartResolver multipartResolver() {
-
 		CommonsMultipartResolver cmr = new CommonsMultipartResolver();
 		cmr.setMaxUploadSize(maxUploadSizeInMb * 2);
 		cmr.setMaxUploadSizePerFile(maxUploadSizeInMb); //bytes
 		return cmr;
-
 	}
 
 

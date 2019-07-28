@@ -9,19 +9,14 @@ import com.pgruszka93.entity.Role;
 import com.pgruszka93.entity.User;
 import com.pgruszka93.user.CrmUser;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.stereotype.Controller;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.ui.Model;
 
-import java.security.Principal;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.stream.Collectors;
@@ -97,6 +92,14 @@ public class UserServiceImpl implements UserService {
 		Collection<User> users = userDao.findAllUsers();
 		return users;
 	}
+
+    @Override
+	@Transactional
+    public void changeEnableStatus(long userId) {
+        userDao.changeEnableStatus(userId);
+
+
+    }
 
 
 }

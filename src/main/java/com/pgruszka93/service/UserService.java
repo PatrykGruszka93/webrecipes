@@ -18,4 +18,6 @@ public interface UserService extends UserDetailsService {
 
     Collection<User> findAllUsers();
 
+    void changeEnableStatus(long userId);
+
 }

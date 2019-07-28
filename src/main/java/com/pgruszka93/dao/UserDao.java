@@ -14,5 +14,7 @@ public interface UserDao {
 
     Collection<User> findAllUsers();
 
+    void changeEnableStatus(long userId);
+
 
 }

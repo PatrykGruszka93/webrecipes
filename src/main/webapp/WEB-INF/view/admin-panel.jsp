@@ -33,6 +33,7 @@
 <div class="container">
 
 	Lista użytkowników:
+
 	<table class="table">
 		<thead>
 		<tr >
@@ -40,22 +41,50 @@
 			<th class="text-center" scope="col">Nazwa użytkownika</th>
 			<th class="text-center" scope="col">E-mail</th>
 			<th class="text-center" scope="col">Role</th>
-			<th class="text-center" scope="col">Aktywny</th>
+			<th class="text-center" scope="col">Zablokuj/Odblokuj</th>
 		</tr>
 		</thead>
 		<tbody>
-		<c:forEach items="${users}" var="user" varStatus="loopCounter">
 
+		<c:forEach items="${users}" var="user" varStatus="loopCounter">
+			<c:url var="changeEnabledStatus" value="/adminPanel/changeEnabledStatus">
+				<c:param name="userId" value="${user.id}"></c:param>
+			</c:url>
 			<tr>
 				<th class="text-center" scope="row">${loopCounter.count}</th>
 				<td class="text-center"> ${user.userName}</td>
 				<td class="text-center"> ${user.email} </td>
 				<td class="text-center">
-					<c:forEach items="${user.roles}" var="role">
+
+                    <c:forEach items="${user.roles}" var="role">
 						${role.name}
+
 					</c:forEach>
 				</td>
-				<td class="text-center"> ${user.active}</td>
+				<td class="text-center">
+                    <c:set var="admin" value="ROLE_ADMIN" />
+                        <c:set var="isAdmin" value="false"/>
+                        <c:forEach items="${user.roles}" var="checkRole">
+                            <c:if test="${checkRole.name==admin}">
+                                <c:set var="isAdmin" value="true"/>
+                            </c:if>
+                        </c:forEach>
+                        <c:choose>
+                            <c:when test="${(isAdmin=='true') and (user.active==true)}">
+                                <button type="button" class="btn btn-danger" disabled>Zablokuj</button>
+                            </c:when>
+							<c:when test="${(isAdmin=='true') and (user.active==false)}">
+								<button type="button" class="btn btn-light" disabled>Odblokuj</button>
+							</c:when>
+                            <c:when test="${(user.active==true) and (isAdmin!='true')}">
+                                <a href="${changeEnabledStatus}" class="btn btn-danger">Zablokuj</a>
+                            </c:when>
+                            <c:otherwise>
+                                <a href="${changeEnabledStatus}" class="btn btn-light">Odblokuj</a>
+                            </c:otherwise>
+                        </c:choose>
+
+  				</td>
 			</tr>
 		</c:forEach>
 		</tbody>
